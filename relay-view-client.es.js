@@ -12650,7 +12650,7 @@ var B_ = mh.exports, Ih = xh, Ah = Vs, W_ = Ah([Ih("%String.prototype.indexOf%")
 const K_ = /* @__PURE__ */ cS(J_), q_ = zp.load();
 class Q_ {
   constructor(e, t) {
-    this.events = [], this.sessionId = e, this.trackServerUrl = t, setInterval(() => this.submit(), 5 * 1e3);
+    this.events = [], this.sessionId = e, this.trackServerUrl = t;
   }
   start() {
     zr({
