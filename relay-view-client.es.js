@@ -12810,9 +12810,10 @@ const Mt = class Mt {
 };
 Si(Mt, "instance");
 let as = Mt;
-function Px(r, e = "https://goldfish-app-wfdz2.ondigitalocean.app") {
+function tx(r, e = "https://goldfish-app-wfdz2.ondigitalocean.app") {
   return new as(e, r);
 }
+typeof window < "u" && (window.trackEvent = tx);
 export {
-  Px as trackEvent
+  tx as trackEvent
 };
