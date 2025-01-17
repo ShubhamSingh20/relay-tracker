@@ -12813,7 +12813,7 @@ let as = Mt;
 function tx(r, e = "https://goldfish-app-wfdz2.ondigitalocean.app") {
   return new as(e, r);
 }
-typeof window < "u" && (window.trackEvent = tx);
+typeof window < "u" && typeof window.relayInit > "u" && (window.relayInit = tx);
 export {
-  tx as trackEvent
+  tx as relayInit
 };
