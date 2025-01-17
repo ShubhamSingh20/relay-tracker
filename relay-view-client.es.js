@@ -12802,7 +12802,7 @@ const Mt = class Mt {
     });
   }
   identify(e) {
-    console.log("Identifying user with ", e), fetch(`${this.trackServerUrl}/api/session_info/${this.sessionId}/`, {
+    console.log("Identifying user with ", e), fetch(`${this.trackServerUrl}/api/session_info/${this.sessionId}`, {
       method: "PATCH",
       body: JSON.stringify(e)
     });
