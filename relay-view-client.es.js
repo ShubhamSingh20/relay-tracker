@@ -12678,38 +12678,6 @@ class Q_ {
     console.error("Error compressing events data", e);
   }
 }
-class ex {
-  constructor(e, t) {
-    this.sessionInfoId = e, this.errorLogServerUrl = t, this.initialize();
-  }
-  initialize() {
-    window.addEventListener("error", (e) => this.logError(e, "unhandled-error")), window.addEventListener("unhandledrejection", (e) => this.logError(e, "unhandled-rejection"));
-  }
-  async logError(e, t) {
-    var l, u, c;
-    const n = t === "unhandled-rejection" ? ((l = e.reason) == null ? void 0 : l.message) || "Unknown promise rejection" : e.message || "Unknown error", i = t === "unhandled-rejection" ? ((u = e.reason) == null ? void 0 : u.stack) || "No stack trace available" : ((c = e.error) == null ? void 0 : c.stack) || "No stack trace available", o = t === "unhandled-rejection" ? document.location.href : e.filename || document.location.href, s = document.location.href, a = {
-      sessionInfoId: this.sessionInfoId,
-      errorPayload: n,
-      stackTrace: i,
-      routePath: s,
-      originPath: o,
-      type: t
-    };
-    console.error("Captured Error:", a);
-    try {
-      await fetch(`${this.errorLogServerUrl}/api/error_logs/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: JSON.stringify([a])
-      });
-    } catch (f) {
-      console.error("Failed to log error to server:", f);
-    }
-  }
-}
 const Ot = class Ot {
   constructor(e, t) {
     if (Ot.instance)
@@ -12783,7 +12751,7 @@ const Mt = class Mt {
     if (Mt.instance)
       return Mt.instance;
     this.projectId = t, this.sessionId = null, this.trackServerUrl = e, this.getOrCreateSession().then(() => {
-      this.interceptor = new ss(this.sessionId, this.trackServerUrl), this.sessionReplay = new Q_(this.sessionId, this.trackServerUrl), this.errorTracker = new ex(this.sessionId, this.trackServerUrl), this.sessionReplay.start(), Mt.instance = this;
+      this.interceptor = new ss(this.sessionId, this.trackServerUrl), this.sessionReplay = new Q_(this.sessionId, this.trackServerUrl), this.sessionReplay.start(), Mt.instance = this;
     });
   }
   getOrCreateSession() {
@@ -12820,10 +12788,10 @@ const Mt = class Mt {
 };
 Si(Mt, "instance");
 let as = Mt;
-function tx(r, e = "https://goldfish-app-wfdz2.ondigitalocean.app") {
+function ex(r, e = "https://api.relyque.com") {
   return new as(e, r);
 }
-typeof window < "u" && typeof window.trackEvent > "u" && (window.trackEvent = tx);
+typeof window < "u" && typeof window.trackEvent > "u" && (window.trackEvent = ex);
 export {
-  tx as trackEvent
+  ex as trackEvent
 };
