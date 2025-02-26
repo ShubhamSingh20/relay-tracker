@@ -12723,6 +12723,9 @@ const Ot = class Ot {
   pushNetworkLog() {
     this.networkLogs.length !== 0 && fetch(`${this.trackServerUrl}/api/network_logs/`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(this.networkLogs)
     }).then((e) => e.json()).then((e) => {
       this.networkLogs = Array();
@@ -12736,16 +12739,18 @@ const Ot = class Ot {
     const n = this;
     XMLHttpRequest.prototype.send = function(i) {
       const o = this;
-      o.__payload = i;
-      const s = o.status;
-      o.addEventListener("loadend", function() {
-        const a = Date.now() - o.__relay_start, l = {
+      o.__payload = i, o.__relay_start = Date.now(), o.addEventListener("loadend", function() {
+        const s = Date.now() - o.__relay_start, a = location.pathname, l = {
           method: o.__relay_method,
           url: o.__relay_url,
           body: o.__payload,
-          statusCode: s,
-          timeTaken: a,
-          sessionInfoId: n.sessionId
+          statusCode: o.status,
+          // Read status here (AFTER request is done)
+          timeTaken: s,
+          contentType: o.getResponseHeader("content-type"),
+          sessionInfoId: n.sessionId,
+          path: a,
+          source: "xhr"
         };
         o.__relay_url.includes(n.trackServerUrl) || n.networkLogs.push(l);
       }), t.apply(this, arguments);
@@ -12755,16 +12760,18 @@ const Ot = class Ot {
     if (this.originalFetch) {
       const e = this, t = this.originalFetch;
       window.fetch = async function(...n) {
-        const [i, o] = n, s = (o == null ? void 0 : o.method) || "GET", a = (o == null ? void 0 : o.body) || null, l = Date.now(), u = await t.apply(this, n), c = Date.now() - l, f = u.status, d = u.headers.get("content-type"), h = {
+        const [i, o] = n, s = (o == null ? void 0 : o.method) || "GET", a = (o == null ? void 0 : o.body) || null, l = location.pathname, u = Date.now(), c = await t.apply(this, n), f = Date.now() - u, d = c.status, h = c.headers.get("content-type"), p = {
           url: i,
           method: s,
           body: a,
-          timeTaken: c,
-          statusCode: f,
+          timeTaken: f,
+          statusCode: d,
           sessionInfoId: e.sessionId,
-          contentType: d
+          contentType: h,
+          path: l,
+          source: "fetch"
         };
-        return i.includes(e.trackServerUrl) || e.networkLogs.push(h), u;
+        return i.includes(e.trackServerUrl) || e.networkLogs.push(p), c;
       };
     }
   }
