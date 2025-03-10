@@ -12583,9 +12583,9 @@ class L_ {
         mousemove: 50,
         mouseInteraction: !0
       },
-      maskAllInputs: !0,
-      inlineImages: !0,
-      collectFonts: !0,
+      maskAllInputs: !1,
+      inlineImages: !1,
+      collectFonts: !1,
       checkoutEveryNms: 5 * 1e3,
       recordCrossOriginIframes: !0,
       emit: (e) => {
