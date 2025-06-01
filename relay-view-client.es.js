@@ -12580,13 +12580,23 @@ class L_ {
       recordCanvas: !1,
       recordDOM: !0,
       sampling: {
-        mousemove: 50,
-        mouseInteraction: !0
+        input: "last",
+        mouseInteraction: {
+          MouseUp: !1,
+          MouseDown: !1,
+          Click: !0,
+          ContextMenu: !1,
+          DblClick: !1,
+          Focus: !1,
+          Blur: !1,
+          TouchStart: !1,
+          TouchEnd: !1
+        }
       },
       maskAllInputs: !1,
       inlineImages: !1,
       collectFonts: !1,
-      checkoutEveryNms: 5 * 1e3,
+      // checkoutEveryNms: 5 * 1000,
       recordCrossOriginIframes: !0,
       emit: (e) => {
         this.events.push(e), this.calculateSize() >= this.maxSize && this.submit();
