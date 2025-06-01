@@ -12576,8 +12576,8 @@ class L_ {
   }
   start() {
     zr({
-      inlineStylesheet: !0,
-      recordCanvas: !0,
+      inlineStylesheet: !1,
+      recordCanvas: !1,
       recordDOM: !0,
       sampling: {
         mousemove: 50,
