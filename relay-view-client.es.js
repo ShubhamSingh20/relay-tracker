@@ -12764,8 +12764,8 @@ const Mt = class Mt {
   getOrCreateSession() {
     return new Promise(async (e, t) => {
       console.log("Getting or creating session");
-      const n = localStorage.getItem("relayActivityTime"), i = localStorage.getItem("relaySessionId");
-      if (i && n && (/* @__PURE__ */ new Date()).getTime() - n < 0.5 * 60 * 60 * 1e3) {
+      const n = parseInt(localStorage.getItem("relayActivityTime") ?? 0, 10), i = localStorage.getItem("relaySessionId"), s = 0.5 * 60 * 60 * 1e3;
+      if (i && n !== 0 && Date.now() - n < s) {
         console.log("Session found in local storage"), this.sessionId = i, e(this.sessionId);
         return;
       }
